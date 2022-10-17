@@ -1,0 +1,71 @@
+  <form autocomplete="off" #editCustomerPeopleForm="ngForm" (ngSubmit)="save()">
+    <h1 mat-dialog-title>{{ "CreateCustomerPeople" | localize }}</h1>
+    <mat-dialog-content>
+      <div class="row-fluid">
+        <div class="col-md-12">
+          <mat-form-field>
+            <input matInput name="name" [placeholder]="'name' | localize" [(ngModel)]="customerpeople.name" required minlength="2" maxlength="32"
+            />
+          </mat-form-field>
+          <!-- <mat-form-field>
+            <input matInput name="departmentId" [placeholder]="'departmentId' | localize" [(ngModel)]="customerpeople.departmentId" required
+              minlength="1" maxlength="32" />
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>departmentName</mat-label>
+            <mat-select [(ngModel)]="customerpeople.departmentName" name="departmentName" (click)="getCustomerDepartments()" minlength="1"
+              maxlength="32">
+              <mat-option *ngFor="let d of customerdepartments" [value]="d.name">
+                {{d.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          <mat-form-field>
+            <input matInput name="tel" [placeholder]="'tel' | localize" [(ngModel)]="customerpeople.tel" required minlength="2" maxlength="32"/>
+          </mat-form-field>
+  
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="col-md-12">
+          <mat-form-field>
+            <input matInput name="email" [placeholder]="'email' | localize" [(ngModel)]="customerpeople.email" required minlength="2"
+              maxlength="32" />
+          </mat-form-field>
+  
+         <mat-form-field>
+            <mat-label>{{ "Position" | localize }}</mat-label>
+            <mat-select [(ngModel)]="customerpeople.positionId" [ngModelOptions]="{standalone: true}" name="position" minlength="1"
+              maxlength="32">
+              <mat-option *ngFor="let p of customerpositions" [value]="p.id">
+                {{p.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <!-- <mat-form-field>
+            <input matInput name="note" [placeholder]="'note' | localize" [(ngModel)]="customerpeople.note" minlength="2" maxlength="32"/>
+          </mat-form-field> -->
+          <mat-form-field class="example-full-width">
+            <textarea matInput [(ngModel)]="customerpeople.note" [ngModelOptions]="{standalone: true}"  placeholder="Note"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="col-md-6">
+            <!-- <input matInput name="canDecideBuy" [placeholder]="'canDecideBuy' | localize" [(ngModel)]="customerpeople.canDecideBuy" required
+              minlength="2" maxlength="32" /> -->
+              <mat-checkbox [checked]="customerpeople.canDecideBuy" (change)="onCanDecideByChange($event)">{{ "canDecideBuy" | localize }}</mat-checkbox>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <div mat-dialog-actions align="end">
+      <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+        {{ "Cancel" | localize }}
+      </button>
+      <button mat-flat-button type="submit" flex="15" color="primary" [disabled]="!editCustomerPeopleForm.form.valid || saving">
+        {{ "Save" | localize }}
+      </button>
+    </div>
+  </form>

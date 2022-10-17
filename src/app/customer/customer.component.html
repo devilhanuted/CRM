@@ -1,0 +1,89 @@
+<div class="row clearfix padding-all backcolor1 sec" [@routerTransition]>
+  <div class="block-header">
+    <div class="row clearfix padding-t3">
+        <form>
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                <mat-form-field>
+                    <input matInput [placeholder]="l('SearchByKeyword')" [(ngModel)]="keyword"
+                    name="keyword">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 text-right padding-b10">
+                <button mat-raised-button color="primary" class="fl-l"
+                (click)="getDataPage(1)">{{ 'Search' | localize }}
+              </button>
+              <button mat-mini-fab color="primary" class="pull-right" (click)="createCustomer()">
+                <mat-icon>add</mat-icon>
+              </button>     
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-b10">
+              <button (click)="exportAsXLSX()" class="button-l1 fl-r padding-b0">
+                  {{ "Export" | localize }}
+                <i class="fa fa-file-excel-o"></i>
+              </button>  
+              <button (click)="importfile()" class="button-l1 fl-r padding-b0 mar0-10">
+                {{ "Import" | localize }}
+              <i class="fa fa-file-excel-o"></i>
+            </button>  
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card main-content backcolor2">
+
+      <div class="body table-responsive">
+          
+        <table class="table table-hover table-striped tablefix" [busy]="isTableLoading" id="">
+          <thead>
+            <tr>
+              <th class="w30">{{ "Name" | localize }}</th>
+              <th class="w15">{{ "Tel" | localize }}</th>
+              <th class="w10">{{ "Fax" | localize }}</th>
+              <th class="w20">{{ "Address" | localize }}</th>
+              <th class="w10">{{ "TaxNumber" | localize }}</th>
+              <th class="w10">{{ "Email" | localize }}</th>
+              <th class="w5 text-ce">{{ "Actions" | localize }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let customer of (customers | paginate: {
+                        id: 'server',
+                        itemsPerPage: pageSize,
+                        currentPage: pageNumber,
+                        totalItems: totalItems })">
+              <td class="detailroute"><a routerLink="{{customer.id}}"><i class="material-icons">local_hospital</i> {{ customer.name }}</a></td>
+              <td>{{ customer.tel }}</td>
+              <td>{{ customer.fax }}</td>
+              <td>{{ customer.address }}</td>
+              <td>{{ customer.taxNumber }}</td>
+              <td>{{ customer.email }}</td>
+              <td class="text-ce padding-n">
+                <button class="action-button" mat-icon-button [matMenuTriggerFor]="actionsMenu">
+                  <mat-icon>menu</mat-icon>
+                </button>
+                <mat-menu #actionsMenu="matMenu">
+                  <button mat-menu-item (click)="editCustomer(customer)">
+                    <mat-icon>edit</mat-icon>
+                    <span>{{ "Edit" | localize }}</span>
+                  </button>
+                  <button mat-menu-item (click)="delete(customer)">
+                    <mat-icon>delete</mat-icon>
+                    <span>{{ "Delete" | localize }}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    
+        <div class="abp-pagination-controls-wrapper" *ngIf="totalItems > pageSize">
+          <abp-pagination-controls (pageChange)="getDataPage($event)" id="server">
+          </abp-pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="save()" novalidate>
+  <h1 mat-dialog-title>{{ "CreateCustomerDepartment" | localize }}</h1>
+  <mat-dialog-content class="padding-t">
+
+        <div class="row-fluid">
+          <div class="col-md-12">
+
+            <mat-form-field>
+<<<<<<< HEAD
+                <input matInput name="customername" [placeholder]="'customername' | localize" 
+                  [(ngModel)]="customerdepartment.customerName" disabled="disabled" required minlength="2"
+                  maxlength="32" />
+              </mat-form-field>
+            <mat-form-field>
+              <input matInput name="name" [placeholder]="'name' | localize" [(ngModel)]="customerdepartment.name" required minlength="2"
+                maxlength="32" />
+=======
+              <input matInput name="customerName" [placeholder]="'customerName' | localize"  
+                required minlength="2" maxlength="36" disabled="disabled"
+                formControlName="customerName"
+                [(ngModel)]="customerdepartment.customerName"
+              />
+              <mat-error *ngIf="!customerName.valid && customerName.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field> 
+              <input matInput name="name" [placeholder]="'name' | localize" 
+              formControlName="name"
+              [(ngModel)]="customerdepartment.name"
+              >
+              <mat-error *ngIf="!name.valid && name.touched">
+                {{ titleAlert }}
+              </mat-error>
+>>>>>>> f620b220fa6bc3760c398e7675dbd3bebe4c43ab
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput name="description" [placeholder]="'description' | localize" 
+              formControlName="description"
+              [(ngModel)]="customerdepartment.description"
+              >
+              <mat-error *ngIf="!description.valid && description.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button mat-flat-button type="submit" flex="15" color="primary" 
+      [disabled]="!formGroup.valid || saving">
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>

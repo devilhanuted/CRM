@@ -1,0 +1,70 @@
+<form autocomplete="off" #createWardForm="ngForm" (ngSubmit)="save()">
+    <h1 mat-dialog-title>{{ "CreateWard" | localize }}</h1>
+    <mat-dialog-content>
+      
+          <div class="row-fluid">
+            <div class="col-md-12">
+              <mat-form-field>
+                  <input matInput name="name" [placeholder]="'name' | localize" [(ngModel)]="ward.name"  required minlength="2"
+                    maxlength="32" />
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput name="englishName" [placeholder]="'englishName' | localize" [(ngModel)]="ward.englishName"  required minlength="2"
+                    maxlength="32" />
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput name="wardType" [placeholder]="'wardType' | localize" [(ngModel)]="ward.wardType"  required minlength="2"
+                    maxlength="32" />
+                </mat-form-field>
+
+              <!-- <mat-form-field>
+                <input matInput name="districtId" [placeholder]="'districtId' | localize" [(ngModel)]="ward.districtId" required minlength="2"
+                  maxlength="32" />
+              </mat-form-field> -->
+              <!-- <mat-form-field>
+                <mat-label>districtName</mat-label>
+                <mat-select [(ngModel)]="ward.districtId" [ngModelOptions]="{standalone: true}" name="districtName" minlength="1"
+                  maxlength="32">
+                  <mat-option *ngFor="let d of districts" (onSelectionChange)="selectDistrict($event)" [value]="d.id">
+                    {{d.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> -->
+
+              <mat-form-field>
+                <input type="text" [placeholder]="'district'| localize" aria-label="district" matInput [formControl]="districtControl"
+                  [matAutocomplete]="districtAuto">
+                <mat-autocomplete #districtAuto="matAutocomplete">
+                  <mat-option *ngFor="let district of districts | async" (optionSelected)="onSelectDistrict($event)" [value]="district.name">
+                    {{district.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <!-- <mat-form-field>
+                <input matInput name="provinceId" [placeholder]="'provinceId' | localize" [(ngModel)]="ward.provinceId"
+                  required minlength="2" maxlength="32" />
+              </mat-form-field> -->
+
+              <mat-form-field>
+                <input type="text" [placeholder]="'province'| localize" aria-label="Number" matInput [formControl]="provinceControl"
+                  [matAutocomplete]="provinceAuto">
+                <mat-autocomplete #provinceAuto="matAutocomplete">
+                  <mat-option *ngFor="let province of provinces" (optionSelected)="onSelectProvince($event)" [value]="province.name">
+                    {{province.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+        
+    </mat-dialog-content>
+    <div mat-dialog-actions align="end">
+      <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+        {{ "Cancel" | localize }}
+      </button>
+      <button mat-flat-button type="submit" flex="15" color="primary" [disabled]="!createWardForm.form.valid || saving">
+        {{ "Save" | localize }}
+      </button>
+    </div>
+  </form>

@@ -1,0 +1,65 @@
+<div class="row clearfix padding-all backcolor1 sec">
+  <div class="block-header">
+    <div class="row clearfix">
+        <form>
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+              <h3 class="tit-submenu"><i class="material-icons">local_hospital</i>{{customer.name}}</h3>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 text-right padding-b10">
+              <button class="button-l1 fl-r" (click)="goBack()">go back</button> 
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+   
+    <div class="card main-content backcolor2">
+      <div class="header">
+          <button mat-mini-fab color="primary" class="pull-right" (click)="createCustomerDepartment()">
+              <mat-icon>add</mat-icon>
+            </button>
+        <h2> {{ "CustomerDepartments" | localize }}</h2>
+      </div>
+      <div class="card main-content backcolor2">
+        <div class="body table-responsive">
+        <table class="table table-hover table-striped tablefix">
+          <thead>
+            <tr>
+              <th class="w30">{{ "Name" | localize }}</th>
+              <th class="w60">{{ "Description" | localize }}</th>
+              <th class="w10 text-ce">{{ "Action" | localize }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let department of departments">
+              <td class="detailroute"><a routerLink="department/{{department.id}}"><i class="material-icons">home</i> {{ department.name }}</a></td>
+              <td>{{ department.description }}</td>
+              <td class="text-ce padding-n">
+                  <button class="action-button" mat-icon-button [matMenuTriggerFor]="actionsMenu">
+                    <mat-icon>menu</mat-icon>
+                  </button>
+                  <mat-menu #actionsMenu="matMenu">
+                      <button mat-menu-item (click)="addCustomerDepartmentChild(department)">
+                          <mat-icon>add</mat-icon>
+                          <span>{{ "AddChild" | localize }}</span>
+                        </button>
+                    <button mat-menu-item (click)="editCustomerDepartment(department)">
+                      <mat-icon>edit</mat-icon>
+                      <span>{{ "Edit" | localize }}</span>
+                    </button>
+                    <button mat-menu-item (click)="delete(department)">
+                      <mat-icon>delete</mat-icon>
+                      <span>{{ "Delete" | localize }}</span>
+                    </button>
+                  </mat-menu>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- #END# Task Info -->
+</div>

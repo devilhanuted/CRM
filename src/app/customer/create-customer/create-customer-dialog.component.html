@@ -1,0 +1,107 @@
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="save()" novalidate>
+  <h1 mat-dialog-title><i class="material-icons">people</i>{{ "CreateNewCustomer" | localize }}</h1>
+  <mat-dialog-content class="padding-t">
+    <div class="row-fluid">
+      <div class="col-md-12">
+        <div class="col-md-4">
+            <mat-form-field>
+              <input matInput name="name" [placeholder]="'name' | localize" 
+              formControlName="name"
+              [(ngModel)]="customer.name"
+              >
+              <mat-error *ngIf="!name.valid && name.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput name="tel" [placeholder]="'tel' | localize"  
+                formControlName="tel"
+                [(ngModel)]="customer.tel"
+                pattern="[0-9]+" minlength="10" 
+              />
+              <mat-error *ngIf="!formGroup.controls['tel'].valid && formGroup.controls['tel'].touched">
+                {{ getErrorTel() }}
+              </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+              <input matInput name="fax" [placeholder]="'fax' | localize" 
+                formControlName="fax"
+                required minlength="2" maxlength="40"
+                [(ngModel)]="customer.fax"
+                pattern="[0-9]+"
+              />
+              <mat-error *ngIf="!formGroup.controls['fax'].valid && formGroup.controls['fax'].touched">
+                {{ getErrorFax() }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="address" [placeholder]="'address' | localize" 
+                formControlName="address"
+                required minlength="2" maxlength="40"
+                [(ngModel)]="customer.address"
+              />
+              <mat-error *ngIf="!address.valid && address.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+              <input matInput name="taxNumber" [placeholder]="'taxNumber' | localize"
+                formControlName="taxNumber"
+                required minlength="2" maxlength="40"
+                [(ngModel)]="customer.taxNumber" 
+                pattern="[0-9]+"
+              />
+              <mat-error *ngIf="!formGroup.controls['taxNumber'].valid && formGroup.controls['taxNumber'].touched">
+                {{ getErrorTaxNumber() }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="email" [placeholder]="'email' | localize" 
+                formControlName="email"
+                [(ngModel)]="customer.email"
+              />
+              <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+                {{ getErrorEmail() }}
+              </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+                <input matInput name="province" [placeholder]="'province' | localize"
+                  formControlName="province"
+                  required minlength="2" maxlength="40"
+                  [(ngModel)]="customer.province" 
+                />
+                <mat-error *ngIf="!province.valid && province.touched">
+                  {{ titleAlert }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput name="district" [placeholder]="'district' | localize" 
+                  formControlName="district"
+                  required minlength="2" maxlength="40"
+                  [(ngModel)]="customer.district"
+                />
+                <mat-error *ngIf="!district.valid && district.touched">
+                  {{ titleAlert }}
+                </mat-error>
+              </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button mat-flat-button type="submit" flex="15" color="primary" 
+      [disabled]="!formGroup.valid || saving">
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>

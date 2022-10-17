@@ -1,0 +1,211 @@
+<form autocomplete="off" #createProjectForm="ngForm" (ngSubmit)="save()">
+  <h1 mat-dialog-title>{{ "CreateNewProject" | localize }}</h1>
+  <mat-dialog-content style="width:1000px;height:800px;">
+    <mat-tab-group>
+
+      <mat-tab [label]="'Project' | localize">
+        <br/>
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput name="ID" [placeholder]="'ID' | localize"
+                [(ngModel)]="project.id" required minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="Name" type="text"
+                [placeholder]="'Name' | localize"
+                [(ngModel)]="project.name" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="StartDate"  type="datetime-local"
+                [placeholder]="'StartDate' | localize"
+                [(ngModel)]="project.startDate" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="ScheduledEndDate"  type="datetime-local"
+                [placeholder]="'ScheduledEndDate' | localize"
+                [(ngModel)]="project.scheduledEndDate" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="EndDate" type="datetime-local"
+                [placeholder]="'EndDate' | localize"
+                [(ngModel)]="project.endDate" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput name="Note"
+                [placeholder]="'Note' | localize"
+                [(ngModel)]="project.note"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="'ProjectPeople' | localize">
+          <br/>
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput name="ProjectID" [placeholder]="'ProjectID' | localize"
+                [(ngModel)]="project.projectID" required minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="ProjectName" [placeholder]="'ProjectName' | localize"
+                [(ngModel)]="project.projectName" required minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="CustomerPeopleID" type="number"
+                [placeholder]="'CustomerPeopleID' | localize"
+                [(ngModel)]="project.customerPeopleID" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="CustomerPeopleName" [placeholder]="'CustomerPeopleName' | localize"
+                [(ngModel)]="project.customerPeopleName" minlength="2" maxlength="32" />
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+    
+      <mat-tab [label]="'Task' | localize">
+        <br/>
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <table style="width:100%">
+              <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>StartDate</th>
+                <th>ScheduledEndDate</th>
+                <th>EndDate</th>
+                <th>Note</th>
+              </thead>
+              <tbody style="margin-top:50px" class="fixp">
+                <tr *ngFor="
+                let task of project.createTasks">
+                  <td>
+                      
+                      <input matInput name="id" type="text"  disabled="disabled"
+                      [placeholder]="'..................' | localize"
+                      [(ngModel)]="task.id" minlength="2" maxlength="32" />
+                    
+                  </td>
+                  <td>
+                      
+                      <input matInput name="Name" type="text" class="back-no back-borno" 
+                      [placeholder]="'..................' | localize"
+                      [(ngModel)]="task.name" minlength="2" maxlength="32" />
+                    
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput name="StartDate"  type="datetime-local"
+                      
+                      [(ngModel)]="task.startDate" minlength="2" maxlength="32" />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput name="ScheduledEndDate"  type="datetime-local"
+                      
+                      [(ngModel)]="task.scheduledEndDate" minlength="2" maxlength="32" />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput name="EndDate" type="datetime-local"
+                      
+                      [(ngModel)]="task.endDate" minlength="2" maxlength="32" />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    
+                      <textarea matInput name="Note"
+                      
+                      [(ngModel)]="task.note"></textarea>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button mat-mini-fab color="primary" class="pull-right" (click)="addtask()">
+            <mat-icon class="editadd">add</mat-icon>
+          </button> 
+        </div>
+        <ul class="createTasks">
+          <li *ngFor="let createTask of createTasks">
+            <a>
+              <span class="badge"></span>{{createTasks.name}}
+            </a>
+            <button class="delete" title="delete createTask"
+              (click)="delete(createTask)">x</button>
+          </li>
+        </ul>
+      </mat-tab>
+
+      <mat-tab [label]="'TaskPeople' | localize">
+        <br/>
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <table style="width:100%">
+              <thead>
+                <th>CustomerPropleName</th>
+              </thead>
+              <tbody style="margin-top:50px">
+                <tr *ngFor="
+                let task of project.createTasks">
+                
+                  <td>
+                    <input matInput name="Name" type="text" class="back-no back-borno" 
+                      [placeholder]="'..................' | localize"
+                      [(ngModel)]="task.customerPeopleName" minlength="2" maxlength="32" />
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput name="TaskID" [placeholder]="'TaskID' | localize" disabled="disabled"
+                        [(ngModel)]="task.taskID"
+                        required minlength="2" maxlength="32" />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput name="UserID" [placeholder]="'UserID' | localize" disabled="disabled"
+                        [(ngModel)]="task.userID" required minlength="2" maxlength="32" />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput name="CustomerPeopleID" type="number" [placeholder]="'CustomerPeopleID' | localize" disabled="disabled"
+                        [(ngModel)]="task.customerPeopleID" minlength="2" maxlength="32" />
+                    </mat-form-field>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button mat-mini-fab color="primary" class="pull-right" (click)="addtask()">
+            <mat-icon class="editadd">add</mat-icon>
+          </button>     
+        </div>
+        <ul class="createTasks">
+          <li *ngFor="let createTask of createTasks">
+            <a>
+              <span class="badge"></span>{{createTasks.name}}
+            </a>
+            <button class="delete" title="delete createTask"
+              (click)="delete(createTask)">x</button>
+          </li>
+        </ul>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button mat-flat-button type="submit" flex="15" color="primary"
+      [disabled]="!createProjectForm.form.valid || saving">
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>

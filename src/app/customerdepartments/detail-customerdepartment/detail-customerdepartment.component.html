@@ -1,0 +1,70 @@
+<div class="row clearfix padding-all backcolor1">
+    <div class="block-header">
+        <div class="row clearfix">
+            <form>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <h2 class="tit-submenu">
+                        {{customer.name}}/<span style="color:aliceblue">{{customerdepartment.name}}</span>
+                    </h2>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right padding-b10">
+                    <button class="button-l1 fl-r" (click)="goBack()">go back</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="header">
+                <button mat-mini-fab color="primary" class="pull-right" (click)="createCustomerPeople()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <h2>{{ "CustomerPeoples" | localize }}</h2>
+
+            </div>
+            <div class="card main-content backcolor2">
+                <div class="body table-responsive backcolor2">
+                    <table class="table table-hover table-striped tablefix">
+                        <thead>
+                            <tr>
+                                <th>{{ "Name" | localize }}</th>
+                                <th>{{ "DepartmentName" | localize }}</th>
+                                <th>{{ "Tel" | localize }}</th>
+                                <th>{{ "Email" | localize }}</th>
+                                <th>{{ "Position" | localize }}
+                                <th>{{ "CanDecideBuy" | localize }}</th>
+                                <th>{{ "Action" | localize }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let customerperson of customerPeople">
+                                <td><i class="material-icons">person</i>{{ customerperson.name }}</td>
+                                <td>{{ customerperson.departmentName }}</td>
+                                <td>{{ customerperson.tel }}</td>
+                                <td>{{ customerperson.email }}</td>
+                                <td>{{ customerperson.positionName }}</td>
+                                <td style="color: #7fdd11;"><i
+                                        class="material-icons">{{customerperson.canDecideBuy| truefalse }}</i></td>
+                                <td>
+                                    <button class="action-button" mat-icon-button [matMenuTriggerFor]="actionsMenu">
+                                        <mat-icon>menu</mat-icon>
+                                    </button>
+                                    <mat-menu #actionsMenu="matMenu">
+                                        <button mat-menu-item (click)="editCustomerPeople(customerperson)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>{{ "Edit" | localize }}</span>
+                                        </button>
+                                        <button mat-menu-item (click)="delete(customerperson)">
+                                            <mat-icon>delete</mat-icon>
+                                            <span>{{ "Delete" | localize }}</span>
+                                        </button>
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

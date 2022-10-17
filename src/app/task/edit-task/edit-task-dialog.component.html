@@ -1,0 +1,77 @@
+<form autocomplete="off" #editTaskForm="ngForm" (ngSubmit)="save()">
+  <h1 mat-dialog-title>{{ "EditTask" | localize }}</h1>
+  <mat-dialog-content style="width:1000px;height:800px;">
+    <mat-tab-group>
+
+      <mat-tab [label]="'Task' | localize">
+        <br/>
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput name="ID" [placeholder]="'ID' | localize"
+                [(ngModel)]="task.id" required minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="Name" type="text"
+                [placeholder]="'Name' | localize"
+                [(ngModel)]="task.name" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="StartDate"  type="datetime-local"
+                [placeholder]="'StartDate' | localize"
+                [(ngModel)]="task.startDate" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="ScheduledEndDate"  type="datetime-local"
+                [placeholder]="'ScheduledEndDate' | localize"
+                [(ngModel)]="task.scheduledEndDate" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="EndDate" type="datetime-local"
+                [placeholder]="'EndDate' | localize"
+                [(ngModel)]="task.endDate" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput name="Note" type="text"
+                [placeholder]="'Note' | localize"
+                [(ngModel)]="task.note"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="'TaskPeople' | localize">
+        <br/>
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput name="TaskID" [placeholder]="'TaskID' | localize" 
+                [(ngModel)]="task.taskID"
+                required minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="UserID" [placeholder]="'UserID' | localize"
+                [(ngModel)]="task.userID" required minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="CustomerPeopleID" type="number" [placeholder]="'CustomerPeopleID' | localize"
+                [(ngModel)]="task.customerPeopleID" minlength="2" maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput name="CustomerPeopleName" type="text" [placeholder]="'CustomerPeopleName' | localize"
+                [(ngModel)]="task.customerPeopleName" minlength="2" maxlength="32" />
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+      
+    </mat-tab-group>
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button mat-flat-button type="submit" flex="15" color="primary" [disabled]="!editTaskForm.form.valid || saving">
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>
